@@ -13,11 +13,11 @@
 <meta property="og:title" content="Firas Hakima | Software Engineer Portfolio">
 <meta property="og:description" content="Explore the software projects, experience, skills, and CV of Firas Hakima, a junior full-stack developer in Monastir, Tunisia.">
 <meta property="og:url" content="https://firashakima.github.io/Portfolio/">
-<meta property="og:image" content="https://firashakima.github.io/Portfolio/assets/Photo%20office.jpg">
+<meta property="og:image" content="https://firashakima.github.io/Portfolio/assets/firas-hakima.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Firas Hakima | Software Engineer Portfolio">
 <meta name="twitter:description" content="Explore the software projects, experience, skills, and CV of Firas Hakima, a junior full-stack developer in Monastir, Tunisia.">
-<meta name="twitter:image" content="https://firashakima.github.io/Portfolio/assets/Photo%20office.jpg">
+<meta name="twitter:image" content="https://firashakima.github.io/Portfolio/assets/firas-hakima.jpg">
 <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
@@ -28,7 +28,7 @@
   "@type": "Person",
   "name": "Firas Hakima",
   "url": "https://firashakima.github.io/Portfolio/",
-  "image": "https://firashakima.github.io/Portfolio/assets/Photo%20office.jpg",
+  "image": "https://firashakima.github.io/Portfolio/assets/firas-hakima.jpg",
   "jobTitle": "Software Engineering Student and Junior Full-Stack Developer",
   "description": "Software engineering student and junior full-stack developer based in Monastir, Tunisia.",
   "address": {
@@ -51,18 +51,22 @@
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
 body{background:var(--bg);color:var(--ink);font:400 1.05rem/1.65 var(--body);-webkit-font-smoothing:antialiased}
+body:has(dialog[open]){overflow:hidden}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+.skip-link{position:absolute;left:-9999px;top:0;z-index:1000;padding:.75rem 1rem;background:var(--ink);color:var(--bg);border-radius:0 0 10px 10px;text-decoration:none}
+.skip-link:focus{left:1rem}
 .wrap{width:min(1100px,92vw);margin-inline:auto}
 header.nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:60px}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:60px;position:relative}
+.nav-panel{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex:1}
 .nav nav{display:flex;gap:1.2rem;font-size:.95rem}
 .nav nav a{text-decoration:none;color:var(--mute)}.nav nav a:hover{color:var(--ink)}
 .langs{display:flex;gap:.25rem}
 .langs button{font:600 .85rem var(--body);background:none;border:1px solid var(--line);color:var(--mute);padding:.3rem .6rem;border-radius:6px;cursor:pointer}
 .langs button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-@media(max-width:760px){.nav nav{display:none}}
-.hero{position:relative;min-height:88vh;display:grid;align-items:center;overflow:hidden;
+.nav-toggle{display:none}
+.hero{position:relative;min-height:88svh;display:grid;align-items:center;overflow:hidden;
 background:radial-gradient(520px circle at var(--sx) var(--sy),color-mix(in srgb,var(--mint) 55%,transparent),transparent 70%)}
 .hero h1{font:800 clamp(3.2rem,12vw,9.5rem)/.9 var(--display);letter-spacing:-.04em}
 .hero h1 span{display:block}
@@ -72,9 +76,17 @@ background:radial-gradient(520px circle at var(--sx) var(--sy),color-mix(in srgb
 .cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
 .btn{display:inline-block;padding:.8rem 1.3rem;border-radius:999px;font-weight:600;text-decoration:none;border:2px solid var(--ink);transition:transform .15s}
 .btn:hover{transform:translateY(-2px)}
-.btn.p{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn.p{background:var(--acc);border-color:var(--acc);color:#08111d}
 .hero .in{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.delay-15{animation-delay:.15s}.delay-20{animation-delay:.2s}.delay-25{animation-delay:.25s}.delay-35{animation-delay:.35s}
 @keyframes rise{from{opacity:0;transform:translateY(28px)}}
+@media(max-width:760px){
+  .nav-toggle{display:inline-flex;align-items:center;justify-content:center;padding:.55rem .8rem;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:600 .85rem var(--body);cursor:pointer}
+  .nav-panel{display:none;position:absolute;top:calc(100% + .5rem);right:0;left:0;flex-direction:column;align-items:stretch;padding:1rem;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 28px rgba(15,27,51,.12)}
+  .nav-panel.open{display:flex}
+  .nav nav{display:flex;flex-direction:column;gap:.5rem}
+  .langs{justify-content:flex-start}
+}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 section{padding:clamp(3.5rem,8vw,6rem) 0;border-top:1px solid var(--line)}
 h2{font:800 clamp(2rem,5vw,3.4rem)/1 var(--display);letter-spacing:-.03em;margin-bottom:2rem}
@@ -93,12 +105,24 @@ h2{font:800 clamp(2rem,5vw,3.4rem)/1 var(--display);letter-spacing:-.03em;margin
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
 .card .media{aspect-ratio:16/9;background:linear-gradient(135deg,var(--acc),var(--mint));display:grid;place-items:center;color:#fff;font:800 2.2rem var(--display)}
 .card .media img,.card .media video{width:100%;height:100%;object-fit:cover}
+.project-media{position:relative;display:block;width:100%;height:100%;background:linear-gradient(135deg,var(--acc),var(--mint));overflow:hidden}
+.project-media .project-preview,.project-media img{display:block;width:100%;height:100%;object-fit:cover}
+.project-media .project-preview{background:#0b1220}
+.project-media .play-badge{position:absolute;left:12px;bottom:12px;z-index:1;display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:rgba(8,17,29,.78);color:#fff;font-size:1.1rem;box-shadow:0 10px 24px rgba(15,27,51,.25)}
+.project-media .play-badge::before{content:"▶";transform:translateX(2px)}
+.project-media.is-video-ready .play-badge{opacity:0;visibility:hidden}
+@media (prefers-reduced-motion: reduce){.project-media .play-badge{opacity:1;visibility:visible}}
 .card .body{padding:1.1rem 1.2rem 1.3rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
-.card h3{font:800 1.35rem/1.15 var(--display)}
+.project-card{cursor:pointer;transition:transform .2s,box-shadow .2s}
+.project-card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(15,27,51,.18)}
+.project-title{padding:0;border:0;background:none;text-align:left;font:800 1.35rem/1.15 var(--display);color:var(--ink);cursor:pointer}
+.project-title:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
 .card p{color:var(--mute);font-size:.98rem;flex:1}
 .links{display:flex;gap:1rem;flex-wrap:wrap;font-weight:600}
 .links a{color:var(--acc)}
-.note{color:var(--mute);font-size:.95rem}
+.note{color:var(--mute);font-size:.95rem}.project-note{margin-bottom:1.2rem}
+.lead{max-width:55ch}
+.project-dialog-video{display:block;width:100%;max-height:420px;border-radius:12px;background:#0b1220;object-fit:cover}
 footer{padding:2rem 0 3rem;color:var(--mute);border-top:1px solid var(--line)}
 [dir=rtl] .hero h1 span:nth-child(2){-webkit-text-stroke:0;color:var(--acc)}
 [dir=rtl] .hero h1{letter-spacing:0;line-height:1.1}
@@ -120,7 +144,6 @@ footer{padding:2rem 0 3rem;color:var(--mute);border-top:1px solid var(--line)}
   [dir=rtl] .portrait::before{inset:8px 8px -8px -8px}
   .hero{padding:1rem 0}
 }
-.card.open{cursor:pointer;transition:transform .2s,box-shadow .2s}.card.open:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(15,27,51,.18)}
 .card .view{font-weight:600;color:var(--acc)}
 dialog#pm{margin:auto;width:min(1150px,96vw);height:min(92vh,880px);padding:0;border:1px solid var(--line);border-radius:18px;background:var(--bg);color:var(--ink);overflow:hidden}
 dialog#pm[open]{display:flex;flex-direction:column}dialog#pm::backdrop{background:rgba(8,14,28,.65);backdrop-filter:blur(4px)}
@@ -142,22 +165,25 @@ dialog#pm[open]{display:flex;flex-direction:column}dialog#pm::backdrop{backgroun
 </style>
 </head>
 <body>
+<a class="skip-link" href="#top">Skip to content</a>
 <header class="nav"><div class="wrap">
   <a href="#top" class="brand"><img src="assets/icons/favicon.svg" alt="" width="28" height="28">Firas Hakima</a>
-  <nav id="nav"></nav>
-  <div class="langs" id="langs" role="group" aria-label="Language"></div>
+  <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navPanel" aria-label="Toggle navigation">Menu</button>
+  <div class="nav-panel" id="navPanel">
+    <nav id="nav" aria-label="Main navigation"></nav>
+    <div class="langs" id="langs" role="group" aria-label="Language"></div>
+  </div>
 </div></header>
 
 <main id="top">
 <div class="hero" id="hero"><div class="wrap herogrid">
   <div class="herotext">
     <h1 class="in"><span id="fn"></span><span id="ln"></span></h1>
-    <p class="role in" id="role" style="animation-delay:.15s"></p>
-    <p class="sub in" id="tag" style="animation-delay:.25s"></p>
-    <div class="cta in" id="cta" style="animation-delay:.35s"></div>
+    <p class="role in delay-15" id="role"></p>
+    <p class="sub in delay-25" id="tag"></p>
+    <div class="cta in delay-35" id="cta"></div>
   </div>
-  <figure class="portrait in" style="animation-delay:.2s"><img src="assets/Photo office.jpg" alt="Firas Hakima" width="800" height="1000" fetchpriority="high"
-    onerror="this.closest('.herogrid').classList.add('solo')"></figure>
+  <figure class="portrait in delay-20"><img src="assets/firas-hakima.jpg" alt="Firas Hakima" width="800" height="1000" fetchpriority="high"></figure>
 </div></div>
 <dialog id="pm" aria-labelledby="pmT"><div class="pmhead"><h3 id="pmT"></h3><button id="pmX" aria-label="Close">×</button></div>
   <div class="pmbody"><div class="pmside"><p id="pmD"></p><div class="tags" id="pmG"></div><div class="links" id="pmL"></div><nav id="pmN" class="pmnav"></nav></div>
@@ -170,7 +196,7 @@ dialog#pm[open]{display:flex;flex-direction:column}dialog#pm::backdrop{backgroun
 
 <section id="projects"><div class="wrap">
   <h2 data-t="projects"></h2>
-  <p class="note" id="pnote" style="margin-bottom:1.2rem"></p>
+  <p class="note project-note" id="pnote"></p>
   <div class="grid" id="repos"></div>
 </div></section>
 
@@ -178,7 +204,7 @@ dialog#pm[open]{display:flex;flex-direction:column}dialog#pm::backdrop{backgroun
 <section id="edu"><div class="wrap"><h2 data-t="edu"></h2><div class="list" id="eduList"></div></div></section>
 <section id="exp"><div class="wrap"><h2 data-t="exp"></h2><div class="list" id="expList"></div></div></section>
 <section id="certs"><div class="wrap"><h2 data-t="certs"></h2><div class="list" id="certList"></div></div></section>
-<section id="contact"><div class="wrap"><h2 data-t="contact"></h2><p id="cp" style="max-width:55ch"></p><div class="cta" id="cc"></div></div></section>
+<section id="contact"><div class="wrap"><h2 data-t="contact"></h2><p id="cp" class="lead"></p><div class="cta" id="cc"></div></div></section>
 </main>
 <footer><div class="wrap" id="foot"></div></footer>
 
@@ -207,7 +233,7 @@ const DATA = {
     ar:"طالب هندسة برمجيات في EPI Polytechnique Sousse. حاصل على إجازة في الإعلامية (اختصاص هندسة البرمجيات) وأدرس الآن في السنة الأولى من دورة المهندسين. أنجزت ثلاثة تربصات، منها تربص مشروع نهاية الدراسات، وأطوّر تطبيقات متعددة المنصات مثل نظام نقطة بيع للمطاعم وتطبيق مكتبي بدون إنترنت لإدارة قاعة رياضة. أحمل أيضًا شهادات Cisco CCNA وAWS Academy وMeta. أبحث عن تربص أو وظيفة مهندس برمجيات مبتدئ."},
   skills: ["JavaScript","React.js","Node.js","Express.js","Electron.js","REST API","HTML5 / CSS3","MySQL","SQLite","PostgreSQL","MongoDB","Firebase","Sequelize","JWT / OTP","Docker","Git / GitHub","Linux","Cisco CCNA","Cybersecurity","AWS Cloud","Agile / Scrum","UML"],
   education: [
-    {years:"2025 – Aujourd'hui", school:"EPI Polytechnique Sousse", degree:{en:"Engineering Degree in Computer Engineering, Year 1",fr:"Cycle ingénieur en informatique, 1re année",de:"Ingenieurstudium Informatik, 1. Jahr",ar:"دورة المهندسين في الإعلامية، السنة الأولى"}},
+    {years:{en:"2025 – Present", fr:"2025 – Aujourd'hui", de:"2025 – Heute", ar:"2025 – الآن"}, school:"EPI Polytechnique Sousse", degree:{en:"Engineering Degree in Computer Engineering, Year 1",fr:"Cycle ingénieur en informatique, 1re année",de:"Ingenieurstudium Informatik, 1. Jahr",ar:"دورة المهندسين في الإعلامية، السنة الأولى"}},
     {years:"2022 – 2025", school:"EPI Polytechnique Sousse", degree:{en:"National Bachelor's Degree in Computer Science, Software Engineering track",fr:"Licence nationale en informatique, spécialité génie logiciel",de:"Nationaler Bachelor in Informatik, Schwerpunkt Softwareentwicklung",ar:"إجازة وطنية في الإعلامية، اختصاص هندسة البرمجيات"}}
   ],
   experience: [
@@ -232,16 +258,19 @@ const DATA = {
      Add a screen recording (mp4) or screenshot in /assets so visitors
      SEE the project working even though it is not deployed. */
   extraProjects: [
-    {title:"Kingdom Gym Manager", tags:["Electron","React.js","Node.js","SQLite"], repo:"", video:"", image:"",
+    {title:"Kingdom Gym Manager", tags:["Electron","React.js","Node.js","SQLite"], repo:"", video:"assets/projects/kingdom-gym-manager/kingdom-gym-manager-demo.mp4", videoWebm:"assets/projects/kingdom-gym-manager/kingdom-gym-manager-demo.webm", poster:"assets/projects/KingdomGym Cover.png", image:"assets/projects/KingdomGym Cover.png",
+     demoLabel:{en:"Kingdom Gym Manager demo recording showing the gym dashboard, member management, scheduling, and local business tools.",fr:"Vidéo de démonstration de Kingdom Gym Manager montrant le tableau de bord, la gestion des membres, la planification et les outils métier locaux.",de:"Demo-Aufnahme von Kingdom Gym Manager mit Dashboard, Mitgliederverwaltung, Terminplanung und lokalen Geschäftstools.",ar:"تسجيل تجريبي لـ Kingdom Gym Manager يوضح لوحة التحكم وإدارة الأعضاء وجدولة المواعيد والأدوات المحلية."},
      desc:{en:"Offline desktop application for managing a gym, with data and business features on a local SQLite database.",fr:"Application desktop hors ligne pour la gestion d'une salle de sport, avec les données et fonctionnalités métier sur une base SQLite locale.",de:"Offline-Desktop-Anwendung zur Verwaltung eines Fitnessstudios mit Daten und Fachfunktionen in einer lokalen SQLite-Datenbank.",ar:"تطبيق سطح مكتب يعمل بدون إنترنت لإدارة قاعة رياضة، مع البيانات والوظائف في قاعدة SQLite محلية."}},
-    {title:"SharpOS", tags:["React.js","Electron","Node.js","MySQL"], repo:"", video:"", image:"",
+    {title:"SharpOS", tags:["React.js","Electron","Node.js","MySQL"], repo:"", video:"assets/projects/sharpos/sharpos-demo.mp4", videoWebm:"assets/projects/sharpos/sharpos-demo.webm", poster:"assets/projects/SharpOs Cover.png", image:"assets/projects/SharpOs Cover.png",
+     demoLabel:{en:"SharpOS demo recording showing the point-of-sale workflow, product management, sessions, and transactions.",fr:"Vidéo de démonstration de SharpOS montrant le flux de caisse, la gestion des produits, les sessions et les transactions.",de:"SharpOS-Demoaufnahme mit Kassensystem, Produktverwaltung, Sitzungen und Transaktionen.",ar:"تسجيل تجريبي لـ SharpOS يوضح سير العمل في نقطة البيع وإدارة المنتجات والجلسات والمعاملات."},
      desc:{en:"Cross-platform point-of-sale app for restaurants and tea rooms: sales, products, sessions, users and transactions.",fr:"Application de point de vente multiplateforme pour restaurants et salons de thé : ventes, produits, sessions, utilisateurs et transactions.",de:"Plattformübergreifendes Kassensystem für Restaurants und Teesalons: Verkäufe, Produkte, Sitzungen, Benutzer und Transaktionen.",ar:"تطبيق نقطة بيع متعدد المنصات للمطاعم وصالونات الشاي: المبيعات والمنتجات والجلسات والمستخدمون والمعاملات."}},
-    {title:"Pharma+", tags:["MongoDB","Express","React","Node.js"], repo:"", video:"", image:"",
+    {title:"Pharma+", tags:["MongoDB","Express","React","Node.js"], repo:"", video:"", videoWebm:"", poster:"", image:"",
      desc:{en:"Pharmacy web app (MERN) to buy medical products, book appointments and connect patients, doctors and pharmacists.",fr:"Application web de pharmacie (MERN) : achat de produits médicaux, rendez-vous et mise en relation entre patients, médecins et pharmaciens.",de:"Apotheken-Webanwendung (MERN) für medizinische Produkte, Terminbuchung und die Vernetzung von Patienten, Ärzten und Apothekern.",ar:"تطبيق ويب لصيدلية (MERN) لشراء المنتجات الطبية وحجز المواعيد والربط بين المرضى والأطباء والصيادلة."}}
   ],
   projects: {
     "Hyundai-hub": {
       title:"Hyundai Hub",
+      image:"assets/projects/Hyundai-hub Cover.png",
       desc:{
         en:"Full-stack web app to book and manage Hyundai vehicle service appointments. Includes OCR scanning of registration documents (Carte Grise), email OTP verification, JWT authentication, and client and admin interfaces.",
         fr:"Application web full-stack pour réserver et gérer les rendez-vous d'entretien Hyundai. Inclut le scan OCR de la carte grise, la vérification OTP par e-mail, l'authentification JWT et des interfaces client et administrateur.",
@@ -264,24 +293,24 @@ const DATA = {
 const T = {
  en:{about:"About",projects:"Projects",skills:"Skills",edu:"Education",exp:"Experience",certs:"Certifications",contact:"Contact",
   cv:"Download CV",hire:"Get in touch",code:"View code",demo:"Live demo",watch:"Demo video",
-  pnote:"Pulled live from my GitHub. Projects run locally and are shown through demo recordings.",
+  pnote:"Demo recording of the app running locally",
   loading:"Loading projects…",fail:"Could not load GitHub projects right now.",all:"See all on GitHub",none:"Nothing here yet.",
-  cp:"Open to internships and junior roles. Write to me, I reply fast.",based:"Based in",updated:"Updated"},
+  cp:"Open to internships and junior roles. Write to me, I reply fast.",based:"Based in",updated:"Updated",present:"Present",skip:"Skip to content",menu:"Menu"},
  fr:{about:"À propos",projects:"Projets",skills:"Compétences",edu:"Formation",exp:"Expérience",certs:"Certifications",contact:"Contact",
   cv:"Télécharger le CV",hire:"Me contacter",code:"Voir le code",demo:"Démo en ligne",watch:"Vidéo de démo",
-  pnote:"Récupérés en direct depuis mon GitHub. Les projets tournent en local et sont présentés par des vidéos de démo.",
+  pnote:"Enregistrement de démonstration de l’application exécutée localement",
   loading:"Chargement des projets…",fail:"Impossible de charger les projets GitHub pour le moment.",all:"Tout voir sur GitHub",none:"Rien pour l'instant.",
-  cp:"Ouvert aux stages et aux postes juniors. Écrivez-moi, je réponds vite.",based:"Basé à",updated:"Mis à jour"},
+  cp:"Ouvert aux stages et aux postes juniors. Écrivez-moi, je réponds vite.",based:"Basé à",updated:"Mis à jour",present:"Aujourd'hui",skip:"Aller au contenu",menu:"Menu"},
  de:{about:"Über mich",projects:"Projekte",skills:"Kenntnisse",edu:"Ausbildung",exp:"Erfahrung",certs:"Zertifikate",contact:"Kontakt",
   cv:"Lebenslauf herunterladen",hire:"Kontakt aufnehmen",code:"Code ansehen",demo:"Live-Demo",watch:"Demo-Video",
-  pnote:"Live von meinem GitHub geladen. Die Projekte laufen lokal und werden über Demo-Aufnahmen gezeigt.",
+  pnote:"Demo-Aufnahme der lokal laufenden App",
   loading:"Projekte werden geladen…",fail:"GitHub-Projekte konnten gerade nicht geladen werden.",all:"Alle auf GitHub",none:"Noch nichts vorhanden.",
-  cp:"Offen für Praktika und Junior-Stellen. Schreib mir, ich antworte schnell.",based:"Wohnort",updated:"Aktualisiert"},
+  cp:"Offen für Praktika und Junior-Stellen. Schreib mir, ich antworte schnell.",based:"Wohnort",updated:"Aktualisiert",present:"Heute",skip:"Zum Inhalt springen",menu:"Menü"},
  ar:{about:"نبذة عني",projects:"المشاريع",skills:"المهارات",edu:"التعليم",exp:"الخبرة",certs:"الشهادات",contact:"التواصل",
   cv:"تحميل السيرة الذاتية",hire:"تواصل معي",code:"عرض الكود",demo:"عرض مباشر",watch:"فيديو توضيحي",
-  pnote:"تُجلب مباشرة من حسابي على GitHub. المشاريع تعمل محليًا وتُعرض عبر فيديوهات توضيحية.",
+  pnote:"تسجيل تجريبي للتطبيق يعمل محليًا",
   loading:"جارٍ تحميل المشاريع…",fail:"تعذر تحميل مشاريع GitHub حاليًا.",all:"عرض الكل على GitHub",none:"لا يوجد شيء بعد.",
-  cp:"متاح للتدريب والوظائف المبتدئة. راسلني وسأرد بسرعة.",based:"المقر",updated:"آخر تحديث"}
+  cp:"متاح للتدريب والوظائف المبتدئة. راسلني وسأرد بسرعة.",based:"المقر",updated:"آخر تحديث",present:"الآن",skip:"تخطّي إلى المحتوى",menu:"القائمة"}
 };
 Object.assign(T.en,{open:"View project design",soon:"Page previews are coming soon.",pages:"Pages"});
 Object.assign(T.fr,{open:"Voir le design du projet",soon:"Les aperçus des pages arrivent bientôt.",pages:"Pages"});
@@ -290,7 +319,17 @@ Object.assign(T.ar,{open:"عرض تصميم المشروع",soon:"معاينات
 const LANGS = {en:"EN",fr:"FR",de:"DE",ar:"عربي"};
 const $ = s => document.querySelector(s);
 const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-let lang = localStorage.getItem("lang") || (navigator.language||"en").slice(0,2);
+const store = {
+  get(key, fallback){
+    try { return window.localStorage.getItem(key) ?? fallback; }
+    catch { return fallback; }
+  },
+  set(key, value){
+    try { window.localStorage.setItem(key, String(value)); }
+    catch { /* ignore storage errors */ }
+  }
+};
+let lang = store.get("lang", (navigator.language||"en").slice(0,2));
 if(!T[lang]) lang="en";
 let repos = null, repoErr = false;
 
@@ -305,19 +344,21 @@ async function loadRepos(){
 
 let shown=[];
 const slugify=x=>String(x).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const excludedRepos = new Set(["posappbackend","posappfront","myportfolio","kingdom-gym","kingdomgym"]);
 function renderRepos(){
   const t = T[lang], box = $("#repos");
   const extra = DATA.extraProjects.map(o=>({...o, slug:slugify(o.title), text:o.desc[lang]}));
   let gh = [];
   if(repoErr){ box.innerHTML = ""; }
-  if(repos) gh = repos.map(r=>{ const o = DATA.projects[r.name]||{}; const title=o.title||r.name.replace(/[-_]/g," ");
+  if(repos) gh = repos.filter(r=>!excludedRepos.has(slugify(r.name))).map(r=>{ const o = DATA.projects[r.name]||{}; const title=o.title||r.name.replace(/[-_]/g," ");
     return {title, slug:slugify(r.name), text:(o.desc&&o.desc[lang])||r.description||"", tags:[r.language,...(r.topics||[]).slice(0,3)].filter(Boolean),
-      repo:r.html_url, demo:o.demo, video:o.video, image:o.image}; });
+      repo:r.html_url, demo:o.demo, video:o.video, videoWebm:o.videoWebm, poster:o.poster, image:o.image}; });
   shown = [...extra, ...gh];
   const cards = shown.map((o,i)=>{
-    const media = o.image ? `<img src="${esc(o.image)}" alt="${esc(o.title)}" loading="lazy">` : esc(o.title.slice(0,2).toUpperCase());
-    return `<article class="card open" data-i="${i}" tabindex="0" role="button" aria-label="${esc(o.title)}"><div class="media">${media}</div><div class="body">
-      <h3>${esc(o.title)}</h3><p>${esc(o.text)}</p><div class="tags">${(o.tags||[]).map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div>
+    const media = o.image ? `<img src="${esc(o.image)}" alt="${esc(o.title)}" loading="lazy">` : (o.video ? `<div class="project-media"><video class="project-preview" muted loop playsinline preload="metadata" width="960" height="540" poster="${esc(o.poster||"")}" data-project="${esc(o.slug)}" aria-label="${esc(o.demoLabel && o.demoLabel[lang] ? o.demoLabel[lang] : o.title + ' demo')}"><source src="${esc(o.videoWebm||o.video)}" type="video/webm"><source src="${esc(o.video||o.videoWebm)}" type="video/mp4"></video><span class="play-badge" aria-hidden="true"></span><noscript><img src="${esc(o.poster||"")}" alt="${esc(o.title)}" loading="lazy"></noscript></div>` : `<div class="project-media"><span class="project-fallback">${esc(o.title.slice(0,2).toUpperCase())}</span></div>`);
+    return `<article class="card project-card" data-i="${i}" tabindex="0" aria-label="${esc(o.title)}"><div class="media">${media}</div><div class="body">
+      <button type="button" class="project-title" data-i="${i}">${esc(o.title)}</button>
+      <p>${esc(o.text)}</p><div class="tags">${(o.tags||[]).map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div>
       <div class="links"><span class="view">${t.open}</span>${o.repo?`<a href="${esc(o.repo)}" target="_blank" rel="noopener">${t.code}</a>`:""}${o.demo?`<a href="${esc(o.demo)}" target="_blank" rel="noopener">${t.demo}</a>`:""}</div></div></article>`;
   }).join("");
   const msg = repoErr ? `<p>${t.fail}</p>` : (!repos ? `<p>${t.loading}</p>` : "");
@@ -331,7 +372,8 @@ async function openProject(i){
   $("#pmN").innerHTML=""; $("#pmS").innerHTML=`<div class="empty">${t.loading}</div>`;
   dlg.showModal(); $("#pmS").scrollTop=0;
   let screens=[]; try{ const r=await fetch(`assets/projects/${o.slug}/manifest.json`); if(r.ok) screens=(await r.json()).screens||[]; }catch(e){}
-  const vid = o.video ? `<video src="${esc(o.video)}" controls muted loop playsinline style="width:100%"></video>` : "";
+  const demoNote = o.demoLabel && o.demoLabel[lang] ? o.demoLabel[lang] : `${o.title} demo recording`;
+  const vid = o.video ? `<video class="project-dialog-video" src="${esc(o.video)}" poster="${esc(o.poster||"")}" width="960" height="540" controls muted playsinline aria-label="${esc(demoNote)}"><source src="${esc(o.videoWebm||o.video)}" type="video/webm"><source src="${esc(o.video||o.videoWebm)}" type="video/mp4"></video>` : "";
   if(!screens.length && !vid){ $("#pmS").innerHTML=`<div class="empty">${t.soon}</div>`; return; }
   $("#pmS").innerHTML = vid + screens.map((sc,k)=>`<figure id="sc${k}"><img src="assets/projects/${o.slug}/${esc(sc.file)}" alt="${esc(sc.label)}" loading="lazy"><figcaption>${esc(sc.label)}</figcaption></figure>`).join("");
   $("#pmN").innerHTML = screens.length>1 ? `<strong>${t.pages}</strong>`+screens.map((sc,k)=>`<button data-k="${k}">${esc(sc.label)}</button>`).join("") : "";
@@ -358,8 +400,15 @@ function render(){
     <div><small>LinkedIn</small><a href="${esc(d.linkedin)}">Firas Hakima</a></div>`;
   $("#pnote").textContent = t.pnote;
   $("#skillList").innerHTML = d.skills.map(s=>`<span class="tag">${esc(s)}</span>`).join("");
-  $("#eduList").innerHTML = d.education.map(e=>`<div class="item"><time>${esc(e.years)}</time><div><b>${esc(e.school)}</b><br>${esc(e.degree[lang])}</div></div>`).join("") || `<p>${t.none}</p>`;
-  $("#expList").innerHTML = d.experience.map(e=>`<div class="item"><time>${esc(e.years)}</time><div><b>${esc(e.org)}</b> · ${esc(e.title[lang])}<br>${esc(e.desc[lang])}</div></div>`).join("") || `<p>${t.none}</p>`;
+  $("#eduList").innerHTML = d.education.map(e=>{
+    const years = e.years && typeof e.years === "object" ? e.years[lang] : (typeof e.years === "string" ? e.years.replace(/Aujourd'hui|Present|Heute|الآن/g, t.present) : "");
+    return `<div class="item"><time>${esc(years)}</time><div><b>${esc(e.school)}</b><br>${esc(e.degree[lang])}</div></div>`;
+  }).join("") || `<p>${t.none}</p>`;
+  $("#expList").innerHTML = d.experience.map(e=>{
+    const title = e.title && e.title[lang] ? e.title[lang] : "";
+    const desc = e.desc && e.desc[lang] ? e.desc[lang] : "";
+    return `<div class="item"><time>${esc(e.years)}</time><div><b>${esc(e.org)}</b> · ${esc(title)}${desc ? `<br>${esc(desc)}` : ""}</div></div>`;
+  }).join("") || `<p>${t.none}</p>`;
   $("#certList").innerHTML = d.certs.map(c=>`<div class="item"><time>${esc(c.year)}</time><div><b>${c.url?`<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.name)}</a>`:esc(c.name)}</b><br>${esc(c.issuer)}</div></div>`).join("") || `<p>${t.none}</p>`;
   $("#cp").textContent = t.cp;
   $("#cc").innerHTML = `<a class="btn p" href="mailto:${esc(d.email)}">${esc(d.email)}</a>
@@ -370,9 +419,69 @@ function render(){
   document.title = `${d.first} ${d.last} — ${d.role[lang]}`;
   renderRepos();
 }
-$("#langs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;lang=b.dataset.l;localStorage.setItem("lang",lang);render();});
+$("#langs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;lang=b.dataset.l;store.set("lang",lang);render();});
 const hero=$("#hero");
-hero.addEventListener("pointermove",e=>{const r=hero.getBoundingClientRect();hero.style.setProperty("--sx",(e.clientX-r.left)+"px");hero.style.setProperty("--sy",(e.clientY-r.top)+"px");});
+const portraitImage = document.querySelector(".portrait img");
+if (portraitImage) {
+  portraitImage.addEventListener("error",()=>{
+    const heroGrid = portraitImage.closest(".herogrid");
+    if (heroGrid) heroGrid.classList.add("solo");
+  });
+}
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const coarsePointer = window.matchMedia("(pointer: coarse)");
+if (!reducedMotion.matches && !coarsePointer.matches) {
+  let frameId = 0;
+  hero.addEventListener("pointermove",e=>{
+    cancelAnimationFrame(frameId);
+    frameId = requestAnimationFrame(()=>{
+      const r = hero.getBoundingClientRect();
+      hero.style.setProperty("--sx",(e.clientX-r.left)+"px");
+      hero.style.setProperty("--sy",(e.clientY-r.top)+"px");
+    });
+  });
+}
+const navToggle=$("#navToggle");
+const navPanel=$("#navPanel");
+const setNavOpen = open => {
+  navPanel.classList.toggle("open", open);
+  navToggle.setAttribute("aria-expanded", String(open));
+};
+navToggle.addEventListener("click",()=>setNavOpen(navToggle.getAttribute("aria-expanded") !== "true"));
+$("#nav").addEventListener("click",()=>{
+  if (window.matchMedia("(max-width: 760px)").matches) setNavOpen(false);
+});
+document.addEventListener("click",e=>{
+  if (!navPanel.contains(e.target) && !navToggle.contains(e.target)) setNavOpen(false);
+});
+document.addEventListener("keydown",e=>{
+  if (e.key === "Escape") setNavOpen(false);
+});
+if (!reducedMotion.matches) {
+  const projectVideos = document.querySelectorAll(".project-preview");
+  const projectObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      if (!video) return;
+      const media = video.closest(".project-media");
+      if (entry.isIntersecting) {
+        video.play().then(()=>{
+          if (media) media.classList.add("is-video-ready");
+        }).catch(()=>{});
+      } else {
+        video.pause();
+        if (media) media.classList.remove("is-video-ready");
+      }
+    });
+  }, {threshold: 0.25});
+  projectVideos.forEach(video => {
+    const media = video.closest(".project-media");
+    if (media) media.classList.remove("is-video-ready");
+    video.addEventListener("playing",()=> media && media.classList.add("is-video-ready"));
+    video.addEventListener("pause",()=> media && media.classList.remove("is-video-ready"));
+    projectObserver.observe(video);
+  });
+}
 render(); loadRepos();
 </script>
 </body>
