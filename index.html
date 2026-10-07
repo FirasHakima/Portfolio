@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Firas Hakima | Software Engineer Portfolio</title>
-<meta name="description" content="Firas Hakima is a software engineering student and junior full-stack developer in Monastir, Tunisia. Explore his projects, experience, skills, and CV.">
+<title>Firas Hakima | Software Engineer &amp; Full-Stack Developer Portfolio</title>
+<meta name="description" content="Firas Hakima's portfolio: fourth-year software engineering student and junior full-stack developer in Monastir, Tunisia. Explore projects, skills, experience, and CV.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://firashakima.github.io/Portfolio/">
 <link rel="sitemap" type="application/xml" href="https://firashakima.github.io/Portfolio/sitemap.xml">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="Firas Hakima | Software Engineer Portfolio">
-<meta property="og:description" content="Explore the software projects, experience, skills, and CV of Firas Hakima, a junior full-stack developer in Monastir, Tunisia.">
+<meta property="og:title" content="Firas Hakima | Software Engineer &amp; Full-Stack Developer Portfolio">
+<meta property="og:description" content="Explore the portfolio, software projects, experience, skills, and CV of Firas Hakima, a fourth-year software engineering student and junior full-stack developer in Monastir, Tunisia.">
 <meta property="og:url" content="https://firashakima.github.io/Portfolio/">
 <meta property="og:image" content="https://firashakima.github.io/Portfolio/assets/firas-hakima.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Firas Hakima | Software Engineer Portfolio">
-<meta name="twitter:description" content="Explore the software projects, experience, skills, and CV of Firas Hakima, a junior full-stack developer in Monastir, Tunisia.">
+<meta name="twitter:title" content="Firas Hakima | Software Engineer &amp; Full-Stack Developer Portfolio">
+<meta name="twitter:description" content="Explore the portfolio, software projects, experience, skills, and CV of Firas Hakima, a fourth-year software engineering student and junior full-stack developer in Monastir, Tunisia.">
 <meta name="twitter:image" content="https://firashakima.github.io/Portfolio/assets/firas-hakima.jpg">
 <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
@@ -29,8 +29,8 @@
   "name": "Firas Hakima",
   "url": "https://firashakima.github.io/Portfolio/",
   "image": "https://firashakima.github.io/Portfolio/assets/firas-hakima.jpg",
-  "jobTitle": "Software Engineering Student and Junior Full-Stack Developer",
-  "description": "Software engineering student and junior full-stack developer based in Monastir, Tunisia.",
+  "jobTitle": "Fourth-Year Software Engineering Student and Junior Full-Stack Developer",
+  "description": "Firas Hakima's software engineering portfolio. Fourth-year engineering student and junior full-stack developer based in Monastir, Tunisia.",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Monastir",
@@ -414,7 +414,7 @@ function render(){
     <a class="btn" href="${esc(d.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>
     <a class="btn" href="https://github.com/${d.github}" target="_blank" rel="noopener">GitHub</a>`;
   $("#foot").textContent = `© ${new Date().getFullYear()} ${d.first} ${d.last}`;
-  document.title = `${d.first} ${d.last} — ${d.role[lang]}`;
+  document.title = `${d.first} ${d.last} | ${d.role[lang]} Portfolio`;
   renderRepos();
 }
 $("#langs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;lang=b.dataset.l;store.set("lang",lang);render();});
