@@ -292,22 +292,22 @@ const T = {
  en:{about:"About",projects:"Projects",skills:"Skills",edu:"Education",exp:"Experience",certs:"Certifications",contact:"Contact",
   cv:"Download CV",hire:"Get in touch",code:"View code",demo:"Live demo",watch:"Demo video",
   pnote:"Demo recording of the app running locally",
-  loading:"Loading projects…",fail:"Could not load GitHub projects right now.",all:"See all on GitHub",none:"Nothing here yet.",
+  loading:"Loading projects…",all:"See all on GitHub",none:"Nothing here yet.",
   cp:"Open to internships and junior roles. Write to me, I reply fast.",based:"Based in",updated:"Updated",present:"Present",skip:"Skip to content",menu:"Menu"},
  fr:{about:"À propos",projects:"Projets",skills:"Compétences",edu:"Formation",exp:"Expérience",certs:"Certifications",contact:"Contact",
   cv:"Télécharger le CV",hire:"Me contacter",code:"Voir le code",demo:"Démo en ligne",watch:"Vidéo de démo",
   pnote:"Enregistrement de démonstration de l’application exécutée localement",
-  loading:"Chargement des projets…",fail:"Impossible de charger les projets GitHub pour le moment.",all:"Tout voir sur GitHub",none:"Rien pour l'instant.",
+  loading:"Chargement des projets…",all:"Tout voir sur GitHub",none:"Rien pour l'instant.",
   cp:"Ouvert aux stages et aux postes juniors. Écrivez-moi, je réponds vite.",based:"Basé à",updated:"Mis à jour",present:"Aujourd'hui",skip:"Aller au contenu",menu:"Menu"},
  de:{about:"Über mich",projects:"Projekte",skills:"Kenntnisse",edu:"Ausbildung",exp:"Erfahrung",certs:"Zertifikate",contact:"Kontakt",
   cv:"Lebenslauf herunterladen",hire:"Kontakt aufnehmen",code:"Code ansehen",demo:"Live-Demo",watch:"Demo-Video",
   pnote:"Demo-Aufnahme der lokal laufenden App",
-  loading:"Projekte werden geladen…",fail:"GitHub-Projekte konnten gerade nicht geladen werden.",all:"Alle auf GitHub",none:"Noch nichts vorhanden.",
+  loading:"Projekte werden geladen…",all:"Alle auf GitHub",none:"Noch nichts vorhanden.",
   cp:"Offen für Praktika und Junior-Stellen. Schreib mir, ich antworte schnell.",based:"Wohnort",updated:"Aktualisiert",present:"Heute",skip:"Zum Inhalt springen",menu:"Menü"},
  ar:{about:"نبذة عني",projects:"المشاريع",skills:"المهارات",edu:"التعليم",exp:"الخبرة",certs:"الشهادات",contact:"التواصل",
   cv:"تحميل السيرة الذاتية",hire:"تواصل معي",code:"عرض الكود",demo:"عرض مباشر",watch:"فيديو توضيحي",
   pnote:"تسجيل تجريبي للتطبيق يعمل محليًا",
-  loading:"جارٍ تحميل المشاريع…",fail:"تعذر تحميل مشاريع GitHub حاليًا.",all:"عرض الكل على GitHub",none:"لا يوجد شيء بعد.",
+  loading:"جارٍ تحميل المشاريع…",all:"عرض الكل على GitHub",none:"لا يوجد شيء بعد.",
   cp:"متاح للتدريب والوظائف المبتدئة. راسلني وسأرد بسرعة.",based:"المقر",updated:"آخر تحديث",present:"الآن",skip:"تخطّي إلى المحتوى",menu:"القائمة"}
 };
 Object.assign(T.en,{open:"View project design",soon:"Page previews are coming soon.",pages:"Pages"});
@@ -329,29 +329,17 @@ const store = {
 };
 let lang = store.get("lang", (navigator.language||"en").slice(0,2));
 if(!T[lang]) lang="en";
-let repos = null, repoErr = false;
-
-async function loadRepos(){
-  try{
-    const r = await fetch(`https://api.github.com/users/${DATA.github}/repos?per_page=100&sort=updated`);
-    if(!r.ok) throw 0;
-    repos = (await r.json()).filter(x=>!x.fork);
-  }catch(e){ repoErr = true; }
-  renderRepos();
-}
-
 let shown=[];
 const slugify=x=>String(x).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const excludedRepos = new Set(["posappbackend","posappfront","myportfolio","kingdom-gym","kingdomgym"]);
 function renderRepos(){
   const t = T[lang], box = $("#repos");
   const extra = DATA.extraProjects.map(o=>({...o, slug:slugify(o.title), text:o.desc[lang]}));
-  let gh = [];
-  if(repoErr){ box.innerHTML = ""; }
-  if(repos) gh = repos.filter(r=>!excludedRepos.has(slugify(r.name))).map(r=>{ const o = DATA.projects[r.name]||{}; const title=o.title||r.name.replace(/[-_]/g," ");
-    return {title, slug:slugify(r.name), text:(o.desc&&o.desc[lang])||r.description||"", tags:[r.language,...(r.topics||[]).slice(0,3)].filter(Boolean),
-      repo:r.html_url, demo:o.demo, video:o.video, videoWebm:o.videoWebm, poster:o.poster, image:o.image}; });
-  shown = [...extra, ...gh];
+  const projects = Object.entries(DATA.projects)
+    .filter(([name])=>!excludedRepos.has(slugify(name)))
+    .map(([name,o])=>({...o, title:o.title||name.replace(/[-_]/g," "), slug:slugify(name),
+      text:(o.desc&&o.desc[lang])||"", tags:o.tags||[], repo:o.repo||`https://github.com/${DATA.github}/${name}`}));
+  shown = [...extra, ...projects];
   const cards = shown.map((o,i)=>{
     const media = o.image ? `<img src="${esc(o.image)}" alt="${esc(o.title)}" loading="lazy">` : (o.video ? `<div class="project-media"><video class="project-preview" muted loop playsinline preload="metadata" width="960" height="540" poster="${esc(o.poster||"")}" data-project="${esc(o.slug)}" aria-label="${esc(o.demoLabel && o.demoLabel[lang] ? o.demoLabel[lang] : o.title + ' demo')}"><source src="${esc(o.videoWebm||o.video)}" type="video/webm"><source src="${esc(o.video||o.videoWebm)}" type="video/mp4"></video><span class="play-badge" aria-hidden="true"></span><noscript><img src="${esc(o.poster||"")}" alt="${esc(o.title)}" loading="lazy"></noscript></div>` : `<div class="project-media"><span class="project-fallback">${esc(o.title.slice(0,2).toUpperCase())}</span></div>`);
     return `<article class="card project-card" data-i="${i}" tabindex="0" aria-label="${esc(o.title)}"><div class="media">${media}</div><div class="body">
@@ -359,8 +347,7 @@ function renderRepos(){
       <p>${esc(o.text)}</p><div class="tags">${(o.tags||[]).map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div>
       <div class="links"><span class="view">${t.open}</span>${o.repo?`<a href="${esc(o.repo)}" target="_blank" rel="noopener">${t.code}</a>`:""}${o.demo?`<a href="${esc(o.demo)}" target="_blank" rel="noopener">${t.demo}</a>`:""}</div></div></article>`;
   }).join("");
-  const msg = repoErr ? `<p>${t.fail}</p>` : (!repos ? `<p>${t.loading}</p>` : "");
-  box.innerHTML = cards + msg + `<p><a class="btn" href="https://github.com/${DATA.github}" target="_blank" rel="noopener">${t.all}</a></p>`;
+  box.innerHTML = cards + `<p><a class="btn" href="https://github.com/${DATA.github}" target="_blank" rel="noopener">${t.all}</a></p>`;
 }
 async function openProject(i){
   const o=shown[i], t=T[lang], dlg=$("#pm"); if(!o) return;
@@ -480,7 +467,7 @@ if (!reducedMotion.matches) {
     projectObserver.observe(video);
   });
 }
-render(); loadRepos();
+render();
 </script>
 </body>
 </html>
