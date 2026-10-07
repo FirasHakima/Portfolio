@@ -262,19 +262,61 @@ const DATA = {
     {title:"SharpOS", tags:["React.js","Electron","Node.js","MySQL"], repo:"", video:"assets/projects/sharpos/sharpos-demo.mp4", videoWebm:"assets/projects/sharpos/sharpos-demo.webm", poster:"assets/projects/SharpOs Cover.png", image:"assets/projects/SharpOs Cover.png",
      demoLabel:{en:"SharpOS demo recording showing the point-of-sale workflow, product management, sessions, and transactions.",fr:"Vidéo de démonstration de SharpOS montrant le flux de caisse, la gestion des produits, les sessions et les transactions.",de:"SharpOS-Demoaufnahme mit Kassensystem, Produktverwaltung, Sitzungen und Transaktionen.",ar:"تسجيل تجريبي لـ SharpOS يوضح سير العمل في نقطة البيع وإدارة المنتجات والجلسات والمعاملات."},
      desc:{en:"Cross-platform point-of-sale app for restaurants and tea rooms: sales, products, sessions, users and transactions.",fr:"Application de point de vente multiplateforme pour restaurants et salons de thé : ventes, produits, sessions, utilisateurs et transactions.",de:"Plattformübergreifendes Kassensystem für Restaurants und Teesalons: Verkäufe, Produkte, Sitzungen, Benutzer und Transaktionen.",ar:"تطبيق نقطة بيع متعدد المنصات للمطاعم وصالونات الشاي: المبيعات والمنتجات والجلسات والمستخدمون والمعاملات."}},
-    {title:"Pharma+", tags:["MongoDB","Express","React","Node.js"], repo:"", video:"", videoWebm:"", poster:"", image:"",
+    {title:"Pharma+", tags:["MongoDB","Express","React","Node.js"], repo:"https://github.com/FirasHakima/Pharma-Plus", video:"", videoWebm:"", poster:"", image:"",
      desc:{en:"Pharmacy web app (MERN) to buy medical products, book appointments and connect patients, doctors and pharmacists.",fr:"Application web de pharmacie (MERN) : achat de produits médicaux, rendez-vous et mise en relation entre patients, médecins et pharmaciens.",de:"Apotheken-Webanwendung (MERN) für medizinische Produkte, Terminbuchung und die Vernetzung von Patienten, Ärzten und Apothekern.",ar:"تطبيق ويب لصيدلية (MERN) لشراء المنتجات الطبية وحجز المواعيد والربط بين المرضى والأطباء والصيادلة."}}
   ],
   projects: {
+    "Portfolio": {
+      title:"Portfolio",
+      image:"assets/icons/icon-512.png",
+      tags:["HTML","CSS","JavaScript"],
+      desc:{
+        en:"Source code for this personal portfolio website.",
+        fr:"Code source de ce portfolio personnel.",
+        de:"Quellcode für diese persönliche Portfolio-Website.",
+        ar:"الشيفرة المصدرية لهذا الموقع الشخصي لعرض الأعمال."
+      }
+    },
+    "auth-numbers-buddy": {
+      title:"Auth Numbers Buddy",
+      tags:["TypeScript","React"],
+      desc:{
+        en:"A TypeScript and React application project.",
+        fr:"Projet d'application développé avec TypeScript et React.",
+        de:"Ein Anwendungsprojekt mit TypeScript und React.",
+        ar:"مشروع تطبيق باستخدام TypeScript وReact."
+      }
+    },
     "Hyundai-hub": {
       title:"Hyundai Hub",
       image:"assets/projects/Hyundai-hub Cover.png",
+      tags:["React","Node.js","OCR","OTP"],
       desc:{
         en:"Full-stack web app to book and manage Hyundai vehicle service appointments. Includes OCR scanning of registration documents (Carte Grise), email OTP verification, JWT authentication, and client and admin interfaces.",
         fr:"Application web full-stack pour réserver et gérer les rendez-vous d'entretien Hyundai. Inclut le scan OCR de la carte grise, la vérification OTP par e-mail, l'authentification JWT et des interfaces client et administrateur.",
         de:"Full-Stack-Webanwendung zur Buchung und Verwaltung von Hyundai-Serviceterminen. Mit OCR-Scan des Fahrzeugscheins (Carte Grise), E-Mail-OTP-Verifizierung, JWT-Authentifizierung sowie Kunden- und Admin-Oberfläche.",
         ar:"تطبيق ويب متكامل لحجز وإدارة مواعيد صيانة سيارات هيونداي. يتضمن مسح البطاقة الرمادية بتقنية OCR، والتحقق برمز OTP عبر البريد، ومصادقة JWT، وواجهتين للعميل والمسؤول."}
       // video:"assets/hyundai-hub-demo.mp4",
+    },
+    "Nuit-d-info-2024": {
+      title:"Nuit de l'Info 2024",
+      tags:["JavaScript","Team project"],
+      desc:{
+        en:"Team project created for Nuit de l'Info 2024, focused on ocean preservation.",
+        fr:"Projet d'équipe réalisé pour la Nuit de l'Info 2024, consacré à la préservation des océans.",
+        de:"Teamprojekt für die Nuit de l'Info 2024 zum Thema Meeresschutz.",
+        ar:"مشروع جماعي لمسابقة Nuit de l'Info 2024 يركز على حماية المحيطات."
+      }
+    },
+    "ing-backend": {
+      title:"Backend Engineering Coursework",
+      tags:["JavaScript","Backend"],
+      desc:{
+        en:"Backend engineering coursework and practical exercises.",
+        fr:"Travaux pratiques et exercices en ingénierie backend.",
+        de:"Kursarbeiten und praktische Übungen zur Backend-Entwicklung.",
+        ar:"أعمال تطبيقية وتمارين في هندسة الأنظمة الخلفية."
+      }
     },
     // "my-repo-name": {
     //   title:"Nice title",
@@ -332,11 +374,12 @@ if(!T[lang]) lang="en";
 let shown=[];
 const slugify=x=>String(x).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const excludedRepos = new Set(["posappbackend","posappfront","myportfolio","kingdom-gym","kingdomgym"]);
+const manuallyFeaturedRepos = new Set(["pharma-plus"]);
 function renderRepos(){
   const t = T[lang], box = $("#repos");
   const extra = DATA.extraProjects.map(o=>({...o, slug:slugify(o.title), text:o.desc[lang]}));
   const projects = Object.entries(DATA.projects)
-    .filter(([name])=>!excludedRepos.has(slugify(name)))
+    .filter(([name])=>!excludedRepos.has(slugify(name))&&!manuallyFeaturedRepos.has(slugify(name)))
     .map(([name,o])=>({...o, title:o.title||name.replace(/[-_]/g," "), slug:slugify(name),
       text:(o.desc&&o.desc[lang])||"", tags:o.tags||[], repo:o.repo||`https://github.com/${DATA.github}/${name}`}));
   shown = [...extra, ...projects];
